@@ -41,6 +41,7 @@ public class menu extends javax.swing.JFrame {
             if (keyword == null || keyword.trim().isEmpty()) {
             sql = "SELECT * FROM produk";
             } else {
+                // Search query with keyword
                 sql = "SELECT * FROM produk WHERE kode LIKE '%" + keyword + "%' OR nama_produk LIKE '%" + keyword + "%'";
             }
             
