@@ -40,7 +40,7 @@ public DefaultTableModel model;
         try {
             con = koneksi_database.getKoneksi(); //Membuat objek baru  (con) dari class KoneksiDatabase, Mengambil koneksi ke database menggunakan getKoneksi().
             st = con.createStatement(); //membuat statement sql untuk menjalankan query
-            rs = st.executeQuery("SELECT * FROM produk");  //Menjalankan query SELECT semua data dari tabel produk.   
+            rs = st.executeQuery("SELECT * FROM produk ORDER BY kode ASC");  //Menjalankan query SELECT semua data dari tabel produk.   
             while(rs.next()) { 
                 String[] row = {rs.getString(1), rs.getString(2), rs.getString(3)}; //➡Ambil isi kolom ke-1, 2, 3, 4 dari baris saat ini di ResultSet, lalu taruh ke array row.
                 model.addRow(row); //Menambahkan array row tadi ke tabel model (DefaultTableModel)
