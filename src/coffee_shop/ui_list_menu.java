@@ -29,7 +29,7 @@ public DefaultTableModel model;
 
     public ui_list_menu() {
         initComponents();
-        String[] header = {"kode", "nama_produk", "harga_produk"}; //daftar nama kolom pada table db
+        String[] header = {"kode", "Nama Produk", "Harga Produk"}; //daftar nama kolom pada table db
         model = new DefaultTableModel (header, 0); //membuat model table terbaru sesuai header dimulai dari 0
         tabel.setModel(model); //Menghubungkan model yang baru dibuat tadi ke komponen tabel
         insert();
@@ -40,7 +40,7 @@ public DefaultTableModel model;
         try {
             con = koneksi_database.getKoneksi(); //Membuat objek baru  (con) dari class KoneksiDatabase, Mengambil koneksi ke database menggunakan getKoneksi().
             st = con.createStatement(); //membuat statement sql untuk menjalankan query
-            rs = st.executeQuery("SELECT * FROM produk ORDER BY kode ASC");  //Menjalankan query SELECT semua data dari tabel produk.   
+            rs = st.executeQuery("SELECT * FROM produk ORDER BY kode DESC");  //Menjalankan query SELECT semua data dari tabel produk.   
             while(rs.next()) { 
                 String[] row = {rs.getString(1), rs.getString(2), rs.getString(3)}; //➡Ambil isi kolom ke-1, 2, 3, 4 dari baris saat ini di ResultSet, lalu taruh ke array row.
                 model.addRow(row); //Menambahkan array row tadi ke tabel model (DefaultTableModel)
@@ -57,13 +57,18 @@ public DefaultTableModel model;
 
         btn_hapus = new javax.swing.JButton();
         btn_add = new javax.swing.JButton();
-        btn_next = new javax.swing.JButton();
+        halaman_menu = new javax.swing.JButton();
         input_harga_produk = new java.awt.TextField();
         btn_clear = new javax.swing.JButton();
         input_nama_produk = new java.awt.TextField();
         input_kode_produk = new java.awt.TextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabel = new javax.swing.JTable();
+        halaman_riwayat = new javax.swing.JButton();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        label3 = new java.awt.Label();
+        label4 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,10 +86,17 @@ public DefaultTableModel model;
             }
         });
 
-        btn_next.setText("Next");
-        btn_next.addActionListener(new java.awt.event.ActionListener() {
+        halaman_menu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        halaman_menu.setText("Ke Halaman Menu/Checkout");
+        halaman_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_nextActionPerformed(evt);
+                halaman_menuActionPerformed(evt);
+            }
+        });
+
+        input_harga_produk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                input_harga_produkKeyTyped(evt);
             }
         });
 
@@ -92,6 +104,12 @@ public DefaultTableModel model;
         btn_clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clearActionPerformed(evt);
+            }
+        });
+
+        input_nama_produk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_nama_produkActionPerformed(evt);
             }
         });
 
@@ -124,56 +142,103 @@ public DefaultTableModel model;
         });
         jScrollPane2.setViewportView(tabel);
 
+        halaman_riwayat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        halaman_riwayat.setText("Ke Halaman Riwayat Transaksi");
+        halaman_riwayat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                halaman_riwayatActionPerformed(evt);
+            }
+        });
+
+        label1.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        label1.setText("Input Kode Produk");
+
+        label2.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        label2.setText("Input Nama Produk");
+
+        label3.setFont(new java.awt.Font("Ebrima", 1, 14)); // NOI18N
+        label3.setText("Input Harga Produk");
+
+        label4.setFont(new java.awt.Font("Microsoft JhengHei", 1, 24)); // NOI18N
+        label4.setText("Tambah Menu / Produk");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_hapus)
-                        .addGap(61, 61, 61)
-                        .addComponent(btn_add)
-                        .addGap(56, 56, 56)
-                        .addComponent(btn_next)
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(input_harga_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(input_nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(input_kode_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20)
+                                .addComponent(btn_hapus)
+                                .addGap(56, 56, 56)
+                                .addComponent(btn_add))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(input_harga_produk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(input_nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(input_kode_produk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_clear)
-                        .addGap(50, 50, 50))))
+                        .addGap(99, 99, 99))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(halaman_menu)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(halaman_riwayat)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(input_kode_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(input_nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(input_kode_produk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(btn_clear)))
+                        .addGap(24, 24, 24)
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(input_nama_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(btn_clear)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(input_harga_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(input_harga_produk, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_add)
-                        .addComponent(btn_next))
+                    .addComponent(btn_add)
                     .addComponent(btn_hapus))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(halaman_riwayat)
+                    .addComponent(halaman_menu))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -208,12 +273,12 @@ public DefaultTableModel model;
         insert();
     }//GEN-LAST:event_btn_addActionPerformed
 
-    private void btn_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nextActionPerformed
+    private void halaman_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_halaman_menuActionPerformed
         // TODO add your handling code here:
         menu halamanLain = new menu(); 
         halamanLain.setVisible(true);  // tampilkan halaman baru
         this.dispose();                 // tutup halaman lama
-    }//GEN-LAST:event_btn_nextActionPerformed
+    }//GEN-LAST:event_halaman_menuActionPerformed
 
     private void tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelMouseClicked
         // TODO add your handling code here:
@@ -264,12 +329,30 @@ public DefaultTableModel model;
 
     private void input_kode_produkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_kode_produkKeyTyped
         //       MEMBUAT VALIDASI AGAR USER HANYA BISA INPUT ANGKA
-        
         char c = evt.getKeyChar();
         if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
         evt.consume(); // abaikan karakter yang bukan angka
     }
     }//GEN-LAST:event_input_kode_produkKeyTyped
+
+    private void input_nama_produkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_nama_produkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_nama_produkActionPerformed
+
+    private void input_harga_produkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_harga_produkKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+        evt.consume(); // abaikan karakter yang bukan angka
+    }
+    }//GEN-LAST:event_input_harga_produkKeyTyped
+
+    private void halaman_riwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_halaman_riwayatActionPerformed
+        // TODO add your handling code here:
+        dana halamanRiwayat = new dana(); 
+        halamanRiwayat.setVisible(true);  // tampilkan halaman baru
+        this.dispose();                 // tutup halaman lama
+    }//GEN-LAST:event_halaman_riwayatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,11 +393,16 @@ public DefaultTableModel model;
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_clear;
     private javax.swing.JButton btn_hapus;
-    private javax.swing.JButton btn_next;
+    private javax.swing.JButton halaman_menu;
+    private javax.swing.JButton halaman_riwayat;
     private java.awt.TextField input_harga_produk;
     private java.awt.TextField input_kode_produk;
     private java.awt.TextField input_nama_produk;
     private javax.swing.JScrollPane jScrollPane2;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
+    private java.awt.Label label3;
+    private java.awt.Label label4;
     private javax.swing.JTable tabel;
     // End of variables declaration//GEN-END:variables
 }

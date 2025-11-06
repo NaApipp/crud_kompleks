@@ -23,19 +23,53 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="label1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="input_cari_transaksi" min="-2" pref="141" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="639" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
+                      <Component id="halaman_menu" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="halaman_checkout" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="260" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="input_cari_transaksi" max="32767" attributes="0"/>
+                  <Component id="label1" pref="28" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="halaman_menu" min="-2" max="-2" attributes="0"/>
+                  <Component id="halaman_checkout" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="54" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,10 +78,70 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="24" style="0"/>
+          <Font name="Tahoma" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="KEUANGAN TOKO"/>
+        <Property name="text" type="java.lang.String" value="Riwayat Transaksi"/>
       </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tabel_riwayat_transaksi">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="4" rowCount="4">
+                <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+              </Table>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabel_riwayat_transaksiMouseClicked"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JTextField" name="input_cari_transaksi">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="input_cari_transaksiActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="input_cari_transaksiKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="java.awt.Label" name="label1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Cari Transaksi"/>
+      </Properties>
+    </Component>
+    <Component class="java.awt.Button" name="halaman_menu">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ebrima" size="14" style="1"/>
+        </Property>
+        <Property name="label" type="java.lang.String" value="Ke Halaman Menu"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="halaman_menuActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="java.awt.Button" name="halaman_checkout">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ebrima" size="14" style="1"/>
+        </Property>
+        <Property name="label" type="java.lang.String" value="Ke Halaman Checkout"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="halaman_checkoutActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
