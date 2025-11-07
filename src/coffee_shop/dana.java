@@ -171,6 +171,10 @@ public class dana extends javax.swing.JFrame {
             }
         });
 
+        total_pemasukan.setEditable(false);
+        total_pemasukan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        total_pemasukan.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        total_pemasukan.setEnabled(false);
         total_pemasukan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 total_pemasukanActionPerformed(evt);

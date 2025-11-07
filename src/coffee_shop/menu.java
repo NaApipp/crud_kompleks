@@ -5,6 +5,8 @@
  */
 package coffee_shop;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -226,6 +228,22 @@ public class menu extends javax.swing.JFrame {
                 input_mejaActionPerformed(evt);
             }
         });
+        input_meja.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                input_mejaKeyTyped(evt);
+            }
+        });
+
+        input_nama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_namaActionPerformed(evt);
+            }
+        });
+        input_nama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                input_namaKeyTyped(evt);
+            }
+        });
 
         label2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         label2.setText("Meja");
@@ -233,7 +251,11 @@ public class menu extends javax.swing.JFrame {
         label3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         label3.setText("Nama");
 
-        total_harga.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        total_harga.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        total_harga.setEditable(false);
+        total_harga.setEnabled(false);
+        total_harga.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        total_harga.setName(""); // NOI18N
         total_harga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 total_hargaActionPerformed(evt);
@@ -486,6 +508,51 @@ public class menu extends javax.swing.JFrame {
     private void input_mejaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_mejaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_input_mejaActionPerformed
+
+    private void input_mejaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_mejaKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+        evt.consume(); // abaikan karakter yang bukan angka
+    }
+    }//GEN-LAST:event_input_mejaKeyTyped
+
+    private void input_namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_namaActionPerformed
+        // TODO add your handling code here:
+        input_nama.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyReleased(KeyEvent e) {
+        String text = input_nama.getText();
+        StringBuilder clean = new StringBuilder();
+
+        for (char c : text.toCharArray()) {
+            if (Character.isLetter(c)) {
+                clean.append(c);
+            }
+        }
+
+        input_nama.setText(clean.toString());
+    }
+});
+
+
+    }//GEN-LAST:event_input_namaActionPerformed
+
+    private void input_namaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_namaKeyTyped
+        // TODO add your handling code here:
+        input_nama.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyTyped(KeyEvent evt) {
+        char c = evt.getKeyChar();
+
+        // Abaikan karakter yang bukan huruf
+        if (!Character.isLetter(c)) {
+            evt.consume();
+        }
+    }
+});
+
+    }//GEN-LAST:event_input_namaKeyTyped
 
     /**
      * @param args the command line arguments
