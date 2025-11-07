@@ -221,6 +221,12 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
+        input_meja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_mejaActionPerformed(evt);
+            }
+        });
+
         label2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         label2.setText("Meja");
 
@@ -476,6 +482,10 @@ public class menu extends javax.swing.JFrame {
     private void input_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_filterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_input_filterActionPerformed
+
+    private void input_mejaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_mejaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_mejaActionPerformed
 
     /**
      * @param args the command line arguments

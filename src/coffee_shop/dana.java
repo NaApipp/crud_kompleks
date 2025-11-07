@@ -6,6 +6,7 @@
 package coffee_shop;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,7 @@ public class dana extends javax.swing.JFrame {
     public dana() {
         initComponents();
         tampilData("");
+        tampilkanTotal("");
     }
 
     private void tampilData(String keyword) {
@@ -71,6 +73,37 @@ public class dana extends javax.swing.JFrame {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    
+    private void tampilkanTotal(String keyword) {
+    try {
+        Connection conn = koneksi_database.getKoneksi();
+        String sql;
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            sql = "SELECT SUM(harga * qty) AS total FROM transaksi_checkout";
+        } else {
+            sql = "SELECT SUM(harga * qty) AS total FROM transaksi_checkout "
+                + "WHERE id LIKE '%" + keyword + "%' "
+                + "OR nama LIKE '%" + keyword + "%' "
+                + "OR tanggal_pembelian LIKE '%" + keyword + "%' "
+                + "OR meja LIKE '%" + keyword + "%'";
+        }
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            int total = rs.getInt("total");
+            total_pemasukan.setText(String.valueOf(total));
+        } else {
+            total_pemasukan.setText("0");
+        }
+
+    } catch (Exception e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,6 +115,8 @@ public class dana extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         halaman_menu = new java.awt.Button();
         halaman_checkout = new java.awt.Button();
+        total_pemasukan = new javax.swing.JTextField();
+        label2 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +171,20 @@ public class dana extends javax.swing.JFrame {
             }
         });
 
+        total_pemasukan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                total_pemasukanActionPerformed(evt);
+            }
+        });
+        total_pemasukan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                total_pemasukanKeyReleased(evt);
+            }
+        });
+
+        label2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        label2.setText("Total Pemasukan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,10 +204,16 @@ public class dana extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(halaman_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(halaman_checkout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(179, 179, 179)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(total_pemasukan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(halaman_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(halaman_checkout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -172,11 +227,15 @@ public class dana extends javax.swing.JFrame {
                     .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(total_pemasukan)
+                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(halaman_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(halaman_checkout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -209,6 +268,14 @@ public class dana extends javax.swing.JFrame {
         halamanLain.setVisible(true);  // tampilkan halaman baru
         this.dispose();                 // tutup halaman lama
     }//GEN-LAST:event_halaman_checkoutActionPerformed
+
+    private void total_pemasukanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_total_pemasukanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_total_pemasukanActionPerformed
+
+    private void total_pemasukanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_pemasukanKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_total_pemasukanKeyReleased
 
     /**
      * @param args the command line arguments
@@ -252,6 +319,8 @@ public class dana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
+    private java.awt.Label label2;
     private javax.swing.JTable tabel_riwayat_transaksi;
+    private javax.swing.JTextField total_pemasukan;
     // End of variables declaration//GEN-END:variables
 }
